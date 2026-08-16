@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Smart Home Energy</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ⚡
+            </div>
+
+            <div>
+
+                <h1>Smart Home Energy</h1>
+
+                <p>
+                    Intelligent household energy prediction
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="status">
+
+            <div class="status-dot"></div>
+
+            ML System Online
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DASHBOARD -->
+
+    <div class="dashboard">
+
+
+        <!-- PREDICTION -->
+
+        <div class="prediction-card">
+
+
+            <div>
+
+                <div class="prediction-top">
+
+                    <span>
+                        NEXT-HOUR FORECAST
+                    </span>
+
+                    <div class="energy-icon">
+                        ⚡
+                    </div>
+
+                </div>
+
+
+                <h2>
+
+                    <span id="prediction">
+                        --
+                    </span>
+
+                    <span class="unit">
+                        kWh
+                    </span>
+
+                </h2>
+
+
+                <p class="prediction-description">
+
+                    Estimated household energy
+                    consumption for the upcoming hour
+                    based on current usage patterns.
+
+                </p>
+
+            </div>
+
+
+            <div class="prediction-footer">
+
+                Powered by Machine Learning
+
+            </div>
+
+        </div>
+
+
+
+        <!-- INPUT CARD -->
+
+        <div class="card">
+
+
+            <div class="card-header">
+
+                <h2>
+                    Energy Inputs
+                </h2>
+
+                <p>
+                    Enter your current household
+                    energy information
+                </p>
+
+            </div>
+
+
+            <div class="form-grid">
+
+
+                <div class="input-group">
+
+                    <label>
+                        Current Power (kW)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="global_active_power"
+                        step="0.01"
+                        value="1.5"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Reactive Power
+                    </label>
+
+                    <input
+                        type="number"
+                        id="global_reactive_power"
+                        step="0.01"
+                        value="0.2"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Voltage (V)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="voltage"
+                        step="0.1"
+                        value="240"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Current (A)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="global_intensity"
+                        step="0.1"
+                        value="6.5"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Kitchen Usage
+                    </label>
+
+                    <input
+                        type="number"
+                        id="sub_metering_1"
+                        step="0.1"
+                        value="10"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Laundry Usage
+                    </label>
+
+                    <input
+                        type="number"
+                        id="sub_metering_2"
+                        step="0.1"
+                        value="20"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        AC / Water Heater
+                    </label>
+
+                    <input
+                        type="number"
+                        id="sub_metering_3"
+                        step="0.1"
+                        value="15"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Previous Hour
+                    </label>
+
+                    <input
+                        type="number"
+                        id="power_lag_1"
+                        step="0.01"
+                        value="1.4"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Same Hour Yesterday
+                    </label>
+
+                    <input
+                        type="number"
+                        id="power_lag_24"
+                        step="0.01"
+                        value="1.3"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Same Hour Last Week
+                    </label>
+
+                    <input
+                        type="number"
+                        id="power_lag_168"
+                        step="0.01"
+                        value="1.2"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        Recent 3-Hour Average
+                    </label>
+
+                    <input
+                        type="number"
+                        id="power_rolling_3"
+                        step="0.01"
+                        value="1.45"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label>
+                        24-Hour Average
+                    </label>
+
+                    <input
+                        type="number"
+                        id="power_rolling_24"
+                        step="0.01"
+                        value="1.35"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                id="predictButton"
+                onclick="predictEnergy()"
+            >
+
+                ⚡ Predict Energy Consumption
+
+            </button>
+
+
+            <div
+                id="loading"
+                class="loading hidden"
+            >
+
+                Analyzing energy patterns...
+
+            </div>
+
+
+            <div
+                id="result"
+                class="result hidden"
+            >
+
+                <p>
+                    Prediction generated successfully
+                </p>
+
+            </div>
+
+
+            <div
+                id="error"
+                class="error hidden"
+            ></div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="footer">
+
+        Smart Home Energy Prediction System
+        • Machine Learning • FastAPI
+
+    </div>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

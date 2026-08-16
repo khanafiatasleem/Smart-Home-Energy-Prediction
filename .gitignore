@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+
+# Node
+node_modules/
+frontend-react/node_modules/
+
+# React build
+frontend-react/dist/
+frontend-react/build/
+
+# Dataset files
+data/*.zip
+data/*.txt
+data/*.csv
+
+# Python cache
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+debug.log
